@@ -57,5 +57,5 @@ guestm@lvm:~/work/varsymfs/varsymfs-new [0]
 
 
 ### Thanks
-- Justin Swartz ( emailto:justin.swartz@risingedge.co.za )
+- Justin Swartz ( justin.swartz@risingedge.co.za )
   For providing me with code to do the environment variable lookup from inside a kernel module.
