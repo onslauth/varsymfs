@@ -54,3 +54,8 @@ total 0
 lrwxrwxrwx 1 root root 0 Oct  9 09:49 resolve -> /home/guestm/pq/opt/pq/0/chassis/test/
 guestm@lvm:~/work/varsymfs/varsymfs-new [0]
 ```
+
+
+### Thanks
+- Justin Swartz ( emailto:justin.swartz@risingedge.co.za )
+  For providing me with code to do the environment variable lookup from inside a kernel module.
