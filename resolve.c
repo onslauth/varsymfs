@@ -45,6 +45,9 @@ static int varsymfs_resolve_readlink( struct dentry *dentry, char __user *buffer
 		goto out;
 	}
 
+	if( dentry && dentry->d_inode )
+		dentry->d_inode->i_size = strlen( link );
+
 	err = readlink_copy( buffer, buflen, link );
 	if( err )
 		goto out;
@@ -62,6 +65,9 @@ static void *varsymfs_resolve_follow_link( struct dentry *dentry, struct nameida
 		link = ERR_PTR( -ENOMEM );
 		goto out;
 	}
+
+	if( dentry && dentry->d_inode )
+		dentry->d_inode->i_size = strlen( link );
 
 out:
 	nd_set_link( nd, link );
