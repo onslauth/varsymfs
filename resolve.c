@@ -48,7 +48,11 @@ static int varsymfs_resolve_readlink( struct dentry *dentry, char __user *buffer
 	if( dentry && dentry->d_inode )
 		dentry->d_inode->i_size = strlen( link );
 
+#if LINUX_VERSION_CODE <= KERNEL_VERSION(3, 14, 99)
+	err = vfs_readlink( dentry, buffer, buflen, link );
+#else
 	err = readlink_copy( buffer, buflen, link );
+#endif
 	if( err )
 		goto out;
 

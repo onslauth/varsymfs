@@ -45,6 +45,7 @@
 #include <linux/uaccess.h>
 #include <linux/slab.h>
 #include <linux/sched.h>
+#include <linux/version.h>
 
 /* File system name */
 #define VARSYMFS_NAME		"varsymfs"
