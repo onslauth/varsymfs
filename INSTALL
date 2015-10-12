@@ -1,0 +1,19 @@
+Instructions for installing the kernel module:
+
+Create a directory
+------------------
+
+$ sudo mkdir /lib/modules/$( uname -r )/kernel/fs/varsymfs
+$ sudo chmod 755 /lib/modules/$( uname -r )/kernel/fs/varsymfs
+
+
+Copy the module to the directory
+--------------------------------
+
+$ cp ./varsymfs.ko /lib/modules/$( uname -r )/kernel/fs/varsymfs
+
+
+Run depmod to update the necessary files
+----------------------------------------
+
+$ sudo depmod
