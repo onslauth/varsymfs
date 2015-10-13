@@ -44,7 +44,7 @@ char *varsymfs_environment_get_value( void )
 {
 	char *env = NULL;
 	char *value = NULL;
-	char env_var[] = "PQ_CURRENT_CHASSIS";
+	char env_var[] = "PQ_CHASSIS_OPT_DIR";
 	size_t env_length;
 
 	struct mm_struct *mm = current->mm;
