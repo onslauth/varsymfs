@@ -10,7 +10,7 @@ $ sudo chmod 755 /lib/modules/$( uname -r )/kernel/fs/varsymfs
 Copy the module to the directory
 --------------------------------
 
-$ cp ./varsymfs.ko /lib/modules/$( uname -r )/kernel/fs/varsymfs
+$ sudo cp ./varsymfs.ko /lib/modules/$( uname -r )/kernel/fs/varsymfs
 
 
 Run depmod to update the necessary files
