@@ -39,7 +39,7 @@ static int varsymfs_resolve_readlink( struct dentry *dentry, char __user *buffer
 	char *link;
 	int err;
 
-	link = varsymfs_environment_get_value( );
+	link = varsymfs_environment_get_value( (char *)dentry->d_sb->s_fs_info );
 	if( !link ) {
 		err = PTR_ERR( link );
 		goto out;
@@ -64,7 +64,7 @@ static void *varsymfs_resolve_follow_link( struct dentry *dentry, struct nameida
 {
 	char *link = ERR_PTR( -ENOENT );
 
-	link = varsymfs_environment_get_value( );
+	link = varsymfs_environment_get_value( (char *)dentry->d_sb->s_fs_info );
 	if( !link ) {
 		link = ERR_PTR( -ENOMEM );
 		goto out;

@@ -40,11 +40,10 @@ static int varsymfs_is_variable_delimiter( char character )
 	return character == '=';
 }
 
-char *varsymfs_environment_get_value( void )
+char *varsymfs_environment_get_value( char *env_var )
 {
 	char *env = NULL;
 	char *value = NULL;
-	char env_var[] = "PQ_CHASSIS_OPT_DIR";
 	size_t env_length;
 
 	struct mm_struct *mm = current->mm;

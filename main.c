@@ -35,6 +35,8 @@ static int varsymfs_fill_super( struct super_block *s, void *raw_data, int silen
 {
 	struct inode *root_inode;
 	int err = 0;
+	unsigned int buflen = 0;
+	char * env_var = (char *)raw_data;
 
 	/* Set the super block details */
 	s->s_flags = MS_NODIRATIME | MS_NOSUID | MS_NOEXEC;
@@ -43,6 +45,16 @@ static int varsymfs_fill_super( struct super_block *s, void *raw_data, int silen
 	s->s_magic = VARSYMFS_MAGIC_NUMBER;
 	s->s_op = &varsymfs_simple_super_operations;
 	s->s_time_gran = 1;
+
+	/* Copy in the environment variable passed in as an option */
+	buflen = strlen( env_var ) + 1;
+	s->s_fs_info = kmalloc( buflen, GFP_KERNEL );
+	if( IS_ERR( s->s_fs_info ) ) {
+		pr_err( "varsymfs_fill_super: failed to allocate memory for private filesystem data\n" );
+		return -ENOMEM;
+	}
+	((char *)s->s_fs_info)[buflen] = '\0';
+	strncpy( s->s_fs_info, env_var, buflen - 1 );
 
 	/* Create a root inode with ino of 0 */
 	root_inode = varsymfs_iget( s, 0 );
@@ -91,7 +103,12 @@ static int varsymfs_fill_super( struct super_block *s, void *raw_data, int silen
 struct dentry *varsymfs_mount( struct file_system_type *fs_type, int flags,
 			       const char *dev_name, void *raw_data )
 {
-	void *data = (void *)dev_name;
+	void *data = (void *)raw_data;
+
+	if( !raw_data ) {
+		printk( KERN_ERR "Missing mount point options\n" );
+		return ERR_PTR( -EINVAL );
+	}
 
 	return mount_nodev( fs_type, flags, data, varsymfs_fill_super );
 }

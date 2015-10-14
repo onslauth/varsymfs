@@ -69,7 +69,7 @@ extern struct inode *varsymfs_iget( struct super_block *sb, unsigned long ino );
 int varsymfs_setup_resolve( struct super_block *s );
 
 /* Function definitions for environment.c */
-extern char *varsymfs_environment_get_value( void );
+extern char *varsymfs_environment_get_value( char * env_var );
 
 
 /* Varsymfs structures */

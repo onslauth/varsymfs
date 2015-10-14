@@ -30,6 +30,16 @@
 
 #include "varsymfs.h"
 
+static void varsymfs_put_super( struct super_block *s )
+{
+	if( !s->s_fs_info )
+		return;
+
+	kfree( s->s_fs_info );
+	s->s_fs_info = NULL;
+}
+
 const struct super_operations varsymfs_simple_super_operations = {
+	.put_super	= varsymfs_put_super,
 	.statfs		= simple_statfs,
 };

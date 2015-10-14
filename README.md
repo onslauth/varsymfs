@@ -27,12 +27,13 @@ the desired location:
 
 ```
 $ sudo insmod varsymfs.ko
-$ sudo mount -t varsymfs none /opt/pq/0
+$ sudo mount -o ENV_VAR -t varsymfs none /opt/pq/0
 ```
 
 This will create a mount point under the directory '/opt/pq/0/' which will contain a
-single symlink 'resolve'. Currently the symlink is hardcoded to use the environment
-variable 'PQ_CURRENT_CHASSIS'.
+single symlink 'resolve'. The symlink will resolve to the value of the environment
+variable ENV_VAR. If the environment variable is not set, the symlink will simply
+appear to be a broken symlink.
 
 
 ### Demo
@@ -42,10 +43,10 @@ $ ls -l /opt/pq/0
 total 0
 lrwxrwxrwx 1 root root 0 Oct  9 09:49 resolve
 guestm@lvm:~/work/varsymfs/varsymfs-new [0]
-$ export PQ_CURRENT_CHASSIS=~/pq/opt/pq/0/chassis/
+$ export ENV_VAR=~/pq/opt/pq/0/chassis/
 next/ test/
 guestm@lvm:~/work/varsymfs/varsymfs-new [0]
-$ export PQ_CURRENT_CHASSIS=~/pq/opt/pq/0/chassis/test/
+$ export ENV_VAR=~/pq/opt/pq/0/chassis/test/
 guestm@lvm:~/work/varsymfs/varsymfs-new [0]
 $ exec bash
 guestm@lvm:~/work/varsymfs/varsymfs-new [0]
