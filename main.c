@@ -154,7 +154,7 @@ static void __exit exit_varsymfs( void )
 	pr_info( "Completed varsymfs module unload\n" );
 }
 
-MODULE_AUTHOR( "Cole Minnar, Paroq Systems (http://www.paroq.com)" );
+MODULE_AUTHOR( "Cole Minnaar, Paroq Systems (http://www.paroq.com)" );
 MODULE_DESCRIPTION( "Variant Symlink Filesystem " VARSYMFS_VERSION "(http://www.paroq.com)" );
 MODULE_LICENSE( "BSD" );
 
