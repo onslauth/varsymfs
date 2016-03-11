@@ -60,7 +60,11 @@ out:
 	return err;
 }
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION( 4, 2, 0 )
+static const char *varsymfs_resolve_follow_link( struct dentry *dentry, void **cookie )
+#else
 static void *varsymfs_resolve_follow_link( struct dentry *dentry, struct nameidata *nd )
+#endif
 {
 	char *link = ERR_PTR( -ENOENT );
 
@@ -74,8 +78,13 @@ static void *varsymfs_resolve_follow_link( struct dentry *dentry, struct nameida
 		dentry->d_inode->i_size = strlen( link );
 
 out:
+#if LINUX_VERSION_CODE >= KERNEL_VERSION( 4, 2, 0 )
+	*cookie = link;
+	return link;
+#else
 	nd_set_link( nd, link );
 	return NULL;
+#endif
 }
 
 static const struct inode_operations varsymfs_resolve_inode_operations = {
